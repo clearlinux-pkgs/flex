@@ -4,7 +4,7 @@
 #
 Name     : flex
 Version  : 2.5.39
-Release  : 13
+Release  : 14
 URL      : http://downloads.sourceforge.net/flex/flex-2.5.39.tar.bz2
 Source0  : http://downloads.sourceforge.net/flex/flex-2.5.39.tar.bz2
 Summary  : No detailed summary available
