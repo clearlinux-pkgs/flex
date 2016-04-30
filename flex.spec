@@ -4,7 +4,7 @@
 #
 Name     : flex
 Version  : 2.6.0
-Release  : 16
+Release  : 17
 URL      : http://downloads.sourceforge.net/flex/flex-2.6.0.tar.bz2
 Source0  : http://downloads.sourceforge.net/flex/flex-2.6.0.tar.bz2
 Summary  : No detailed summary available
