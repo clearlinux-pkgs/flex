@@ -4,7 +4,7 @@
 #
 Name     : flex
 Version  : 2.6.1
-Release  : 18
+Release  : 19
 URL      : https://github.com/westes/flex/releases/download/v2.6.1/flex-2.6.1.tar.gz
 Source0  : https://github.com/westes/flex/releases/download/v2.6.1/flex-2.6.1.tar.gz
 Summary  : No detailed summary available
@@ -71,14 +71,14 @@ locales components for the flex package.
 %build
 export LANG=C
 %configure --disable-static
-make V=1  %{?_smp_mflags}
+make V=1
 
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make VERBOSE=1 V=1 check
 
 %install
 rm -rf %{buildroot}
