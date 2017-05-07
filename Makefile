@@ -1,5 +1,5 @@
 PKG_NAME := flex
-URL := https://github.com/westes/flex/releases/download/v2.6.1/flex-2.6.1.tar.gz
-ARCHIVES :=
+URL := https://github.com/westes/flex/archive/v2.6.4.tar.gz
+
 
 include ../common/Makefile.common
