@@ -4,7 +4,7 @@
 #
 Name     : flex
 Version  : 2.6.4
-Release  : 20
+Release  : 21
 URL      : https://github.com/westes/flex/archive/v2.6.4.tar.gz
 Source0  : https://github.com/westes/flex/archive/v2.6.4.tar.gz
 Summary  : No detailed summary available
