@@ -4,12 +4,12 @@
 #
 Name     : flex
 Version  : 2.6.4
-Release  : 23
+Release  : 24
 URL      : https://github.com/westes/flex/archive/v2.6.4.tar.gz
 Source0  : https://github.com/westes/flex/archive/v2.6.4.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : BSD-3-Clause LGPL-2.0+
+License  : BSD-3-Clause
 Requires: flex-bin
 Requires: flex-lib
 Requires: flex-doc
@@ -18,6 +18,7 @@ BuildRequires : bison
 BuildRequires : flex
 BuildRequires : help2man
 BuildRequires : texinfo
+Patch1: define-gnu-source.patch
 
 %description
 This file describes the flex test suite.
@@ -71,15 +72,16 @@ locales components for the flex package.
 
 %prep
 %setup -q -n flex-2.6.4
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1494174689
+export SOURCE_DATE_EPOCH=1526411446
 %autogen --disable-static
-make V=1
+make
 
 %check
 export LANG=C
@@ -89,7 +91,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 check
 
 %install
-export SOURCE_DATE_EPOCH=1494174689
+export SOURCE_DATE_EPOCH=1526411446
 rm -rf %{buildroot}
 %make_install
 %find_lang flex
