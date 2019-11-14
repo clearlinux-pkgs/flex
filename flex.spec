@@ -4,16 +4,18 @@
 #
 Name     : flex
 Version  : 2.6.4
-Release  : 25
+Release  : 26
 URL      : https://github.com/westes/flex/archive/v2.6.4.tar.gz
 Source0  : https://github.com/westes/flex/archive/v2.6.4.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause
-Requires: flex-bin
-Requires: flex-lib
-Requires: flex-doc
-Requires: flex-locales
+Requires: flex-bin = %{version}-%{release}
+Requires: flex-info = %{version}-%{release}
+Requires: flex-lib = %{version}-%{release}
+Requires: flex-license = %{version}-%{release}
+Requires: flex-locales = %{version}-%{release}
+Requires: flex-man = %{version}-%{release}
 BuildRequires : bison
 BuildRequires : flex
 BuildRequires : help2man
@@ -21,15 +23,14 @@ BuildRequires : texinfo
 Patch1: define-gnu-source.patch
 
 %description
-This file describes the flex test suite.
-* WHO SHOULD USE THE TEST SUITE?
-The test suite is intended to be used by flex developers, i.e., anyone hacking
-the flex distribution. If you are simply installing flex, then you can ignore
-this directory and its contents.
+This directory contains some examples of what you can do with
+flex. These files are not tested regularly so you might have to tinker
+a bit before they work for you. Updates, new files and patches are welcome.
 
 %package bin
 Summary: bin components for the flex package.
 Group: Binaries
+Requires: flex-license = %{version}-%{release}
 
 %description bin
 bin components for the flex package.
@@ -38,9 +39,10 @@ bin components for the flex package.
 %package dev
 Summary: dev components for the flex package.
 Group: Development
-Requires: flex-lib
-Requires: flex-bin
-Provides: flex-devel
+Requires: flex-lib = %{version}-%{release}
+Requires: flex-bin = %{version}-%{release}
+Provides: flex-devel = %{version}-%{release}
+Requires: flex = %{version}-%{release}
 
 %description dev
 dev components for the flex package.
@@ -49,17 +51,36 @@ dev components for the flex package.
 %package doc
 Summary: doc components for the flex package.
 Group: Documentation
+Requires: flex-man = %{version}-%{release}
+Requires: flex-info = %{version}-%{release}
 
 %description doc
 doc components for the flex package.
 
 
+%package info
+Summary: info components for the flex package.
+Group: Default
+
+%description info
+info components for the flex package.
+
+
 %package lib
 Summary: lib components for the flex package.
 Group: Libraries
+Requires: flex-license = %{version}-%{release}
 
 %description lib
 lib components for the flex package.
+
+
+%package license
+Summary: license components for the flex package.
+Group: Default
+
+%description license
+license components for the flex package.
 
 
 %package locales
@@ -70,29 +91,48 @@ Group: Default
 locales components for the flex package.
 
 
+%package man
+Summary: man components for the flex package.
+Group: Default
+
+%description man
+man components for the flex package.
+
+
 %prep
 %setup -q -n flex-2.6.4
+cd %{_builddir}/flex-2.6.4
 %patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1526411446
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1573772290
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %autogen --disable-static
 make
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 check
 
 %install
-export SOURCE_DATE_EPOCH=1526411446
+export SOURCE_DATE_EPOCH=1573772290
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/flex
+cp %{_builddir}/flex-2.6.4/COPYING %{buildroot}/usr/share/package-licenses/flex/8700ab23bab4b72fb847af3d2a52c46f8fb6b62a
 %make_install
 %find_lang flex
 
@@ -106,19 +146,31 @@ rm -rf %{buildroot}
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
+/usr/include/FlexLexer.h
 /usr/lib64/libfl.so
 
 %files doc
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 %doc /usr/share/doc/flex/*
-%doc /usr/share/info/*
-%doc /usr/share/man/man1/*
+
+%files info
+%defattr(0644,root,root,0755)
+/usr/share/info/flex.info
+/usr/share/info/flex.info-1
+/usr/share/info/flex.info-2
 
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libfl.so.2
 /usr/lib64/libfl.so.2.0.0
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/flex/8700ab23bab4b72fb847af3d2a52c46f8fb6b62a
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/flex.1
 
 %files locales -f flex.lang
 %defattr(-,root,root,-)

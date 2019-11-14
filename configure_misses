@@ -1,0 +1,2 @@
+Configure miss: gtexi2dvi
+Configure miss: if ${top_srcdir}/build-aux/missing indent is GNU indent
