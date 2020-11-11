@@ -4,7 +4,7 @@
 #
 Name     : flex
 Version  : 2.6.4
-Release  : 26
+Release  : 27
 URL      : https://github.com/westes/flex/archive/v2.6.4.tar.gz
 Source0  : https://github.com/westes/flex/archive/v2.6.4.tar.gz
 Summary  : No detailed summary available
@@ -109,14 +109,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1573772290
+export SOURCE_DATE_EPOCH=1605126905
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %autogen --disable-static
 make
@@ -126,10 +126,10 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 check
+make check
 
 %install
-export SOURCE_DATE_EPOCH=1573772290
+export SOURCE_DATE_EPOCH=1605126905
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/flex
 cp %{_builddir}/flex-2.6.4/COPYING %{buildroot}/usr/share/package-licenses/flex/8700ab23bab4b72fb847af3d2a52c46f8fb6b62a
